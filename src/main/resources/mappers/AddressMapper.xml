@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+  
+<mapper namespace="cn.tedu.store.mapper.AddressMapper">
+
+    <!-- /**
+     * 根据id删除地址信息
+     * @param id
+     */
+    void deleteAddress(Integer id); -->
+    <delete id="deleteAddress">
+          delete
+          from
+              t_address
+          where
+               id=#{id}
+    </delete>
+    <!-- 插入地址 -->
+    <insert id="insert" parameterType="cn.tedu.store.bean.Address">
+        insert into 
+        t_address(
+           uid,recv_name,recv_province,recv_city,recv_area,
+           recv_district,recv_address,recv_phone,recv_tel,recv_zip,
+           recv_tag,created_user,created_time,modified_user,
+           modified_time,is_default) 
+       values(
+           #{uid},#{recvName},#{recvProvince},
+           #{recvCity},#{recvArea},#{recvDistrict},#{recvAddress},
+           #{recvPhone},#{recvTel},#{recvZip},#{recvTag},#{createdUser},
+           #{createdTime},#{modifiedUser},#{modifiedTime},#{isDefault})
+    </insert>
+    
+    <!-- 通过uid进行查询登录人的收货地址 -->
+    <!-- List<Address> selectByUid(Integer uid) -->
+    <select id="selectByUid" resultType="cn.tedu.store.bean.Address">
+          select 
+                id,uid,recv_name as recvName,
+                recv_province as recvProvince,
+                recv_city as recvCity,
+                recv_area as recvArea,
+                recv_district as recvDistrict,
+                recv_address as recvAddress,
+                recv_phone as recvPhone,
+                recv_tel as recvTel,
+                recv_zip as recvZip,
+                recv_tag as recvTag,
+                created_user as createdUser,
+                created_time as createdTime,
+                modified_user as modifiedUser,
+                modified_time as modifiedTime,
+                is_default as isDefault
+            from
+                t_address
+            where
+                uid=#{uid}
+    </select>
+    
+    <!--/**
+     * 把登录用户的所有is_default设置为0
+     * @param uid
+     * @return
+     */
+    Integer setCancel(Integer uid);  -->
+    <update id="setCancel">
+          update 
+                t_address
+          set
+              is_default=0
+          where
+               uid=#{uid}
+              
+    </update>
+    
+    <!-- /**
+     * 把选中的地址栏is_default设置为1
+     * @param id
+     * @return
+     */
+    Integer setDefault(Integer id); -->
+    <update id="setDefault">
+         update 
+                t_address
+          set
+              is_default=1
+          where
+               id=#{id}
+    </update>
+    
+    <!-- /**
+     * 通过id查询地址做修改
+     * @param id
+     * @return
+     */
+    Address selectAddressById(Integer id); -->
+    <select id="selectAddressById" resultType="cn.tedu.store.bean.Address">
+           select 
+                id,uid,recv_name as recvName,
+                recv_province as recvProvince,
+                recv_city as recvCity,
+                recv_area as recvArea,
+                recv_district as recvDistrict,
+                recv_address as recvAddress,
+                recv_phone as recvPhone,
+                recv_tel as recvTel,
+                recv_zip as recvZip,
+                recv_tag as recvTag,
+                created_user as createdUser,
+                created_time as createdTime,
+                modified_user as modifiedUser,
+                modified_time as modifiedTime,
+                is_default as isDefault
+           from
+               t_address
+           where
+                id=#{id}
+    </select>
+    
+    <!-- /**
+     * 根据id修改地址信息
+     * @param address
+     */
+    void updateById(Address address); -->
+    <update id="updateById" parameterType="cn.tedu.store.bean.Address">
+          update 
+                t_address
+          set
+                recv_name=#{recvName},
+                recv_province=#{recvProvince},
+                recv_city=#{recvCity},
+                recv_area=#{recvArea},
+                recv_district=#{recvDistrict},
+                recv_address=#{recvAddress},
+                recv_phone=#{recvPhone},
+                recv_tel=#{recvTel},
+                recv_zip=#{recvZip},
+                recv_tag=#{recvTag}
+           where
+                id=#{id}
+    </update>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
